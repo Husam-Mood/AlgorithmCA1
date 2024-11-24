@@ -32,7 +32,7 @@ public class LinkedList<T> implements LinkedListADT<T> {
         LinearNode<T> temp = null;
         T result = null;
         if (isEmpty()) {
-            System.out.println("There are no books in the list");
+            System.out.println("There are no employees in the list");
         } else {
             result = this.front.getElement();
             temp = this.front;
