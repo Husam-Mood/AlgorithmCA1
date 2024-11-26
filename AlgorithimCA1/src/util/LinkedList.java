@@ -1,77 +1,117 @@
 package util;
 
-
 public class LinkedList<T> implements LinkedListADT<T> {
-    
-    private int count;  // the current number of elements in the list
-    private LinearNode<T> front; //pointer to the first element 
-    private LinearNode<T> last; //pointer to the last element 
-     
+    private int count; 
+    private LinearNode<T> front; 
+    private LinearNode<T> last; 
+
     public LinkedList() {
-       this.count = 0;
-       this.last = null;
-       this.front = null;
+        this.count = 0;
+        this.front = null;
+        this.last = null;
     }
 
     public void add(T element) {
-        LinearNode<T> node = new LinearNode<T>(element);
+        LinearNode<T> node = new LinearNode<>(element);
 
         if (isEmpty()) {
-            this.front = node;
-            this.last = node;
+            this.front = node; 
+            this.last = node; 
         } else {
-            node.setNext(this.front); 
-            this.front = node;       
+            this.last.setNext(node); 
+            this.last = node;      
+        }
+        this.count++; 
+    }
+
+    @Override
+    public void add(T element, int position) {
+        if (position < 1 || position > count + 1) {
+            System.out.println("Invalid position. Must be between 1 and " + (count + 1) + ".");
+            return; 
+        }
+
+        LinearNode<T> newNode = new LinearNode<>(element);
+
+        if (position == 1) { 
+            newNode.setNext(this.front);
+            this.front = newNode;
+            if (this.last == null) { 
+                this.last = newNode;
+            }
+        } else if (position == count + 1) { 
+            this.last.setNext(newNode);
+            this.last = newNode;
+        } else { 
+            LinearNode<T> previous = this.front;
+            for (int i = 1; i < position - 1; i++) { 
+                previous = previous.getNext();
+            }
+            newNode.setNext(previous.getNext());
+            previous.setNext(newNode);
         }
 
         this.count++;
     }
 
+    
+    public LinearNode<T> getFirstNode() {
+        return this.front;
+    }
 
-    public T remove() {
-        LinearNode<T> temp = null;
-        T result = null;
+    public LinearNode<T> getLastNode() {
+        return this.last; 
+    }
+
+    public T getFirstElement() {
         if (isEmpty()) {
-            System.out.println("There are no employees in the list");
-        } else {
-            result = this.front.getElement();
-            temp = this.front;
-            this.front = this.front.getNext();
-            temp.setNext(null);
-            count--;
+            System.out.println("The list is empty.");
+            return null; 
         }
-        return result;
+        return this.front.getElement();
     }
 
-    
-    public T get(int i) {
-        if (i < 1 || i > count) {
-            return null;
+    public T getLastElement() {
+        if (isEmpty()) {
+            System.out.println("The list is empty.");
+            return null; 
+        }
+        return this.last.getElement();
+    }
+
+    public T remove(T element) {
+        if (isEmpty()) {
+            System.out.println("List is empty. Cannot remove element.");
+            return null; 
         }
 
         LinearNode<T> current = front;
-        int position = 1;
-
-        while (current != null && position < i) {
-            current = current.getNext();
-            position++;
-        }
-
-        return current != null ? current.getElement() : null;
-    }
-
-    
-    public boolean contains(T element) {
-        LinearNode<T> current = front;
+        LinearNode<T> previous = null;
 
         while (current != null) {
-            if (current.getElement().equals(element)) {
-                return true;
+            if (current.getElement().equals(element)) { 
+                if (current == front) { 
+                    front = front.getNext();
+                    if (front == null) { 
+                        last = null;
+                    }
+                } else if (current == last) { 
+                    last = previous;
+                    last.setNext(null);
+                } else { 
+                    previous.setNext(current.getNext());
+                }
+
+                count--; 
+                return current.getElement(); 
             }
+
+            previous = current;
             current = current.getNext();
         }
 
-        return false;
+        System.out.println("Element not found in the list.");
+        return null; 
     }
 
     public boolean isEmpty() {
@@ -82,15 +122,24 @@ public class LinkedList<T> implements LinkedListADT<T> {
         return this.count;
     }
 
-    
     public String toString() {
-        LinearNode<T> current = null;
-        String fullList = "";
-        
-        for (current = this.front; current != null; current = current.getNext()) {
-            fullList += "\n" + current.getElement().toString();
+        if (isEmpty()) {
+            return "The list is empty.";
         }
-        
-        return fullList + "\n";
-    }
+            LinearNode<T> current = null;
+            String fullList = "";
+
+            for (current = this.front; current != null; current = current.getNext()) {
+                fullList = fullList + "\n" + current.getElement().toString();
+            } 
+
+            return fullList + "\n";
+        }
+
+ 	   
+    
+
+
 }
+
+

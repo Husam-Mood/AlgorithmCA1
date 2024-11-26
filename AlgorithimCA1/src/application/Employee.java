@@ -3,21 +3,22 @@ package application;
 public class Employee {
     private String employeeNumber;
     private String name;
-    private int yearsWorking;
+    private int experience;
     private String courseName;
 
-    // Constructors
-    public Employee() {
-        
-    }
-
-    public Employee(String employeeNumber, String name, int yearsWorking, String courseName) {
+    public Employee(String employeeNumber, String name, int experience, String courseName) {
         this.employeeNumber = employeeNumber;
         this.name = name;
-        setYearsWorking(yearsWorking);
-        setCourseName(courseName);   
+        this.experience = experience; 
+        this.courseName = courseName;
     }
 
+    public Employee() {
+        this.employeeNumber = "";
+        this.name = "";
+        this.experience = 0;
+        this.courseName = "ERROR";
+    }
 
     public String getEmployeeNumber() {
         return employeeNumber;
@@ -35,17 +36,12 @@ public class Employee {
         this.name = name;
     }
 
-    public int getYearsWorking() {
-        return yearsWorking;
+    public int getExperience() {
+        return experience;
     }
 
-    public void setYearsWorking(int yearsWorking) {
-        if (yearsWorking >= 5) {
-            this.yearsWorking = yearsWorking;
-        } else {
-            System.out.println("Error: Employees must have at least 5 years of experience.");
-            this.yearsWorking = 0; 
-        }
+    public void getExperience(int experience) {
+        this.experience = experience;
     }
 
     public String getCourseName() {
@@ -53,26 +49,19 @@ public class Employee {
     }
 
     public void setCourseName(String courseName) {
-        if (courseName.startsWith("FOOD")) {
-            this.courseName = courseName;
-        } else {
-            System.out.println("Error: Course name must start with 'FOOD'. Setting course name to 'ERROR'.");
-            this.courseName = "ERROR";
-        }
+        this.courseName = courseName;
     }
-
-  
-    public void displayEmployeeDetails() {
-        System.out.println("Employee Number: " + employeeNumber);
-        System.out.println("Name: " + name);
-        System.out.println("Years Working: " + yearsWorking);
-        System.out.println("Course Name: " + courseName);
-        System.out.println("-----------------------");
+ 
+    public boolean employeeSame(String employeeNumber) {
+        return this.employeeNumber.equals(employeeNumber);
     }
-
     
-    public boolean isSameEmployee(Employee other) {
-        return this.employeeNumber.equals(other.getEmployeeNumber());
+    @Override
+    public String toString() {
+        return "Employee Number: " + employeeNumber +
+               ", Name: " + name +
+               ", Experience " + experience +
+               ", Course Name: " + courseName;
     }
 }
 
