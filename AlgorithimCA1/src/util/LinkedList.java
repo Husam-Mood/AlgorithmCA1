@@ -1,5 +1,7 @@
 package util;
 
+import application.Employee;
+
 public class LinkedList<T> implements LinkedListADT<T> {
     private int count; 
     private LinearNode<T> front; 
@@ -82,37 +84,40 @@ public class LinkedList<T> implements LinkedListADT<T> {
     public T remove(T element) {
         if (isEmpty()) {
             System.out.println("List is empty. Cannot remove element.");
-            return null; 
+            return null;
         }
 
-        LinearNode<T> current = front;
-        LinearNode<T> previous = null;
+        LinearNode<T> current = front; 
+        LinearNode<T> previous = null; 
 
-        while (current != null) {
-            if (current.getElement().equals(element)) { 
-                if (current == front) { 
-                    front = front.getNext();
-                    if (front == null) { 
-                        last = null;
-                    }
-                } else if (current == last) { 
-                    last = previous;
-                    last.setNext(null);
-                } else { 
-                    previous.setNext(current.getNext());
-                }
+        while (current != null && !current.getElement().equals(element)) {
+            previous = current; 
+            current = current.getNext(); 
+        }
 
-                count--; 
-                return current.getElement(); 
+        if (current == null) {
+            System.out.println("Element not found in the list.");
+            return null;
+        }
+
+        if (current == front) { 
+            front = front.getNext(); 
+            if (front == null) {
+                last = null; 
             }
-
-            previous = current;
-            current = current.getNext();
+        } else if (current == last) { 
+            last = previous;
+            if (last != null) { 
+                last.setNext(null); 
+            }
+        } else { 
+            previous.setNext(current.getNext()); 
         }
 
-        System.out.println("Element not found in the list.");
-        return null; 
+        count--; 
+        return current.getElement();
     }
+
 
     public boolean isEmpty() {
         return this.front == null;
@@ -121,6 +126,91 @@ public class LinkedList<T> implements LinkedListADT<T> {
     public int size() {
         return this.count;
     }
+    
+    public void displayCourses() {
+        if (isEmpty()) {
+            System.out.println("\nNo employees are in any Training Courses.");
+        } else {
+            System.out.println("\n=== Employees in Training Courses ===");
+            LinearNode<T> current = this.getFirstNode();
+
+            while (current != null) {
+                System.out.println(current.getElement().toString());
+                current = current.getNext();
+            }
+        }
+    }
+    
+   
+        public int removeEmployeesFromCourse(String courseName) {
+            int removedCount = 0;
+            LinearNode<T> current = this.front;
+            LinearNode<T> previous = null;
+
+            while (current != null) {
+                Employee currentEmployee = (Employee) current.getElement();
+                if (currentEmployee.getCourseName().equalsIgnoreCase(courseName)) {
+                    if (current == front) { 
+                        front = front.getNext();
+                        if (front == null) { 
+                            last = null;
+                        }
+                    } else if (current == last) { 
+                        last = previous;
+                        last.setNext(null);
+                    } else {
+                        previous.setNext(current.getNext());
+                    }
+                    removedCount++;
+                    count--; 
+                } else {
+                    previous = current; 
+                }
+                current = current.getNext();
+            }
+
+            return removedCount;
+        }
+    
+        public boolean awardCert(String courseName, String employeeName) {
+            if (isEmpty()) {
+                System.out.println("The list is empty. No employees to evaluate.");
+                return false;
+            }
+
+            LinearNode<T> current = this.front;
+            boolean certificateAwarded = false;
+
+            while (current != null) {
+                Employee employee = (Employee) current.getData();
+
+                if (employee.getCourseName().equalsIgnoreCase(courseName) &&
+                    employee.getName().equalsIgnoreCase(employeeName)) {
+                    employee.awardCertification();
+                    certificateAwarded = true;
+                    
+                }
+                current = current.getNextNode();
+            }
+
+            if (!certificateAwarded) {
+                System.out.println("No employee found with the name \"" + employeeName + 
+                                   "\" enrolled in the course \"" + courseName + "\".");
+            }
+
+            return certificateAwarded;
+        }
+        
+        
+
+
+
+
+        public LinearNode<T> getFront()
+        {
+        	return this.front;
+        }
+
 
     public String toString() {
         if (isEmpty()) {

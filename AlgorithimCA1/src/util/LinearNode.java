@@ -1,5 +1,7 @@
 package util;
 
+import application.Employee;
+
 public class LinearNode<T> {
     private LinearNode<T> next; 
     private T element;         
@@ -29,4 +31,14 @@ public class LinearNode<T> {
     public void setElement(T elem) {
         this.element = elem;
     }
+
+	public LinearNode<T> getNextNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Employee getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

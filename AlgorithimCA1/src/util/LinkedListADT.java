@@ -19,6 +19,10 @@ public interface LinkedListADT<T> {
     public boolean isEmpty();
 
     public int size();
+    
+    public void displayCourses();
+   
+    public int removeEmployeesFromCourse(String courseName);
 
 
     public String toString();
