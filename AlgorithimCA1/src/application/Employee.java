@@ -1,3 +1,10 @@
+/*
+* File name : Employee.java
+* Author : Husam Mehmood
+* Student number : C23465252
+* Description of class : Employee info and methods/checkers
+*/
+
 package application;
 
 public class Employee {

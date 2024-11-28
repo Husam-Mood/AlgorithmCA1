@@ -1,3 +1,10 @@
+/*
+* File name : TrainingCourses.java
+* Author : Husam Mehmood
+* Student number : C23465252
+* Description of class : Main driver class
+*/
+
 package application;
 
 import util.LinearNode;

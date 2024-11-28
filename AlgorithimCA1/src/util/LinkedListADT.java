@@ -1,3 +1,10 @@
+/*
+* File name : LinkedListADT.java
+* Author : Husam Mehmood
+* Student number : C23465252
+* Description of class : LinkedListADT interface to store and manipulate data
+*/
+
 package util;
 
 public interface LinkedListADT<T> {

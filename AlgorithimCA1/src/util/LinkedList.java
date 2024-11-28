@@ -1,3 +1,10 @@
+/*
+* File name : LinkedList.java
+* Author : Husam Mehmood
+* Student number : C23465252
+* Description of class : LinkedList class to store and manipulate data
+*/
+
 package util;
 
 import application.Employee;

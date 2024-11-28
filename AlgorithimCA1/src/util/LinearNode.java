@@ -1,3 +1,11 @@
+/*
+* File name : LinearNode.java
+* Author : Husam Mehmood
+* Student number : C23465252
+* Description of class : Node class for linked list
+*/
+
+
 package util;
 
 import application.Employee;
